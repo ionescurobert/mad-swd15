@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         myList = findViewById(android.R.id.list);
-        ImageButton fabImageButton = findViewById(R.id.fab);
+        ImageButton fabImageButton = findViewById(R.id.fab_image_button);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
