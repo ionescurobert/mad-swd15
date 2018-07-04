@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         View parent = (View) view.getParent();
         TextView taskTextView = (TextView) parent.findViewById(R.id.task_title);
         String task = String.valueOf(taskTextView.getText());
-        Intent intent = new Intent(MainActivity.this, ItemActivity.class);
+        Intent intent = new Intent(MainActivity.this, EditItemActivity.class);
         intent.putExtra("ItemName", task);
         startActivity(intent);
 

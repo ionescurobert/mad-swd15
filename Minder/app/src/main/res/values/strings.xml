@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">Minder</string>
-    <string name="title_activity_item">ItemActivity</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+
+    <!-- Example settings for Data & Sync -->
+
+    <!-- Example settings for Notifications -->
+
+    <string name="title_activity_edit_item">EditItemActivity</string>
 </resources>
