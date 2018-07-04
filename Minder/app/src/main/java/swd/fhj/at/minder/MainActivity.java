@@ -76,8 +76,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 / (SensorManager.GRAVITY_EARTH * SensorManager.GRAVITY_EARTH);
 
         long actualTime = System.currentTimeMillis();
-        Toast.makeText(getApplicationContext(),String.valueOf(accelationSquareRoot)+" "+
-                SensorManager.GRAVITY_EARTH,Toast.LENGTH_SHORT).show();
 
         if (accelationSquareRoot >= 2) //it will be executed if you shuffle
         {

@@ -35,6 +35,7 @@ public class EditItemActivity extends AppCompatActivity {
 
         // Save changes
         Button save = (Button) findViewById(R.id.savebtn);
+        Button cancel = (Button) findViewById(R.id.cancelbtn);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,6 +51,19 @@ public class EditItemActivity extends AppCompatActivity {
 
                 Snackbar.make(view, "Saved", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                Intent intent1 = new Intent(EditItemActivity.this, MainActivity.class);
+                startActivity(intent1);
+                finish();
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(v, "Cancelled", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                Intent intent1 = new Intent(EditItemActivity.this, MainActivity.class);
+                startActivity(intent1);
+                finish();
             }
         });
     }
