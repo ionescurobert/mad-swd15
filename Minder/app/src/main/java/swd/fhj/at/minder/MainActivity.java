@@ -2,6 +2,7 @@ package swd.fhj.at.minder;
 
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         mTaskListView = (ListView) findViewById(R.id.list_todo);
 
         updateUI();
+
     }
 
     @Override
@@ -50,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 final EditText taskEditText = new EditText(this);
                 AlertDialog dialog = new AlertDialog.Builder(this)
                         .setTitle("Add a new task")
-                        .setMessage("What do you want to do next?")
+                        .setMessage("What do you want to add?")
                         .setView(taskEditText)
                         .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                             @Override
@@ -75,6 +78,16 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void editTask(View view) {
+        View parent = (View) view.getParent();
+        TextView taskTextView = (TextView) parent.findViewById(R.id.task_title);
+        String task = String.valueOf(taskTextView.getText());
+        Intent intent = new Intent(MainActivity.this, ItemActivity.class);
+        intent.putExtra("ItemName", task);
+        startActivity(intent);
+
     }
 
     public void deleteTask(View view) {
@@ -115,4 +128,5 @@ public class MainActivity extends AppCompatActivity {
         cursor.close();
         db.close();
     }
+
 }
