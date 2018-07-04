@@ -5,6 +5,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -16,29 +21,99 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import swd.fhj.at.minder.db.TaskContract;
 import swd.fhj.at.minder.db.TaskDBHelper;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SensorEventListener {
     private static final String TAG = "MainActivity";
     private TaskDBHelper mHelper;
     private ListView mTaskListView;
     private ArrayAdapter<String> mAdapter;
+    private SensorManager sensorManager;
+    private boolean isColor = false;
+    private long lastUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mHelper = new TaskDBHelper(this);
         mTaskListView = (ListView) findViewById(R.id.list_todo);
 
         updateUI();
 
+
+
     }
+
+
+    //overriding two methods of SensorEventListener
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {}
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            getAccelerometer(event);
+        }
+
+    }
+
+    private void getAccelerometer(SensorEvent event) {
+        float[] values = event.values;
+        // Movement
+        float x = values[0];
+        float y = values[1];
+        float z = values[2];
+
+        float accelationSquareRoot = (x * x + y * y + z * z)
+                / (SensorManager.GRAVITY_EARTH * SensorManager.GRAVITY_EARTH);
+
+        long actualTime = System.currentTimeMillis();
+        Toast.makeText(getApplicationContext(),String.valueOf(accelationSquareRoot)+" "+
+                SensorManager.GRAVITY_EARTH,Toast.LENGTH_SHORT).show();
+
+        if (accelationSquareRoot >= 2) //it will be executed if you shuffle
+        {
+
+            if (actualTime - lastUpdate < 200) {
+                return;
+            }
+            lastUpdate = actualTime;//updating lastUpdate for next shuffle
+            if (isColor) {
+                mTaskListView.setBackgroundColor(Color.GREEN);
+
+            } else {
+                mTaskListView.setBackgroundColor(Color.RED);
+            }
+            isColor = !isColor;
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // register this class as a listener for the orientation and
+        // accelerometer sensors
+        sensorManager.registerListener(this,sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    protected void onPause() {
+        // unregister listener
+        super.onPause();
+        sensorManager.unregisterListener(this);
+    }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
