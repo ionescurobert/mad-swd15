@@ -39,13 +39,13 @@ public class EditItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 SQLiteDatabase db = mHelper.getWritableDatabase();
-                String taskupdate = String.valueOf(findViewById(R.id.editTextView));
+                String taskupdate = String.valueOf(((TextView) findViewById(R.id.editTextView)).getText());
 
                 ContentValues values = new ContentValues();
-                values.put(TaskContract.TaskEntry., taskupdate);
+                values.put(TaskContract.TaskEntry.COL_TASK_TITLE, taskupdate);
                 //db.update(TaskContract.TaskEntry.TABLE, values,
                   //      TaskContract.TaskEntry.COL_TASK_TITLE + " = ?", args);
-                db.update(TaskContract.TaskEntry.TABLE, values,null, new String[]{data});
+                db.update(TaskContract.TaskEntry.TABLE, values,"title = ?",new String[] { data });
                 db.close();
 
                 Snackbar.make(view, "Saved", Snackbar.LENGTH_LONG)
