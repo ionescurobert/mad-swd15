@@ -36,6 +36,7 @@ public class EditItemActivity extends AppCompatActivity {
         // Save changes
         Button save = (Button) findViewById(R.id.savebtn);
         Button cancel = (Button) findViewById(R.id.cancelbtn);
+        Button mark = (Button) findViewById(R.id.donebtn);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,6 +67,13 @@ public class EditItemActivity extends AppCompatActivity {
                 finish();
             }
         });
+        mark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Set state to done here
+            }
+        });
+
     }
 
 }

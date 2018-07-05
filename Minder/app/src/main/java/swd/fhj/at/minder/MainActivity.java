@@ -132,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                                 String task = String.valueOf(taskEditText.getText());
                                 SQLiteDatabase db = mHelper.getWritableDatabase();
                                 ContentValues values = new ContentValues();
+                                values.put(TaskContract.TaskEntry.COL_TASK_STATE, 0);
                                 values.put(TaskContract.TaskEntry.COL_TASK_TITLE, task);
                                 db.insertWithOnConflict(TaskContract.TaskEntry.TABLE,
                                         null,
@@ -161,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     }
 
-    public void deleteTask(View view) {
+    public void doneTask(View view) {
         View parent = (View) view.getParent();
         TextView taskTextView = (TextView) parent.findViewById(R.id.task_title);
         String task = String.valueOf(taskTextView.getText());
@@ -177,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         ArrayList<String> taskList = new ArrayList<>();
         SQLiteDatabase db = mHelper.getReadableDatabase();
         Cursor cursor = db.query(TaskContract.TaskEntry.TABLE,
-                new String[]{TaskContract.TaskEntry._ID, TaskContract.TaskEntry.COL_TASK_TITLE},
+                new String[]{TaskContract.TaskEntry._ID, TaskContract.TaskEntry.COL_TASK_TITLE, TaskContract.TaskEntry.COL_TASK_STATE},
                 null, null, null, null, null);
         while (cursor.moveToNext()) {
             int idx = cursor.getColumnIndex(TaskContract.TaskEntry.COL_TASK_TITLE);
@@ -189,7 +190,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     R.layout.item_todo,
                     R.id.task_title,
                     taskList);
+
             mTaskListView.setAdapter(mAdapter);
+
         } else {
             mAdapter.clear();
             mAdapter.addAll(taskList);
