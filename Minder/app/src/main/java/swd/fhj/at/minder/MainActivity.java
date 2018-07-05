@@ -27,6 +27,7 @@ import swd.fhj.at.minder.db.TaskDBHelper;
 
 import java.util.ArrayList;
 
+// Main activity -- Entry Point for our application
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
     private static final String TAG = "MainActivity";
     private TaskDBHelper mHelper;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private boolean isColor = false;
     private long lastUpdate;
 
+    // OnCreate will be called on activity start
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
 
     }
-
+    // Getting information from G-sensor
     private void getAccelerometer(SensorEvent event) {
         float[] values = event.values;
         // Movement
@@ -111,12 +113,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
 
 
+    // Generates the + in the toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
+    // Called when user wants to add a new entry
+    // Uses alert for input, creates entry with unique id + taskname + state
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -152,6 +157,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
+    // method when clicking on a task
+    // starts second activity to manage selected task
     public void editTask(View view) {
         View parent = (View) view.getParent();
         TextView taskTextView = (TextView) parent.findViewById(R.id.task_title);
@@ -162,6 +169,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     }
 
+    // Will delete a task from DB and update UI
     public void doneTask(View view) {
         View parent = (View) view.getParent();
         TextView taskTextView = (TextView) parent.findViewById(R.id.task_title);
@@ -174,6 +182,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         updateUI();
     }
 
+    // Method to update the listview from the DB
     private void updateUI() {
         ArrayList<String> taskList = new ArrayList<>();
         SQLiteDatabase db = mHelper.getReadableDatabase();
