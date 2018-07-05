@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Minder</string>
+    <string name="app_name">MAD - Minder</string>
 
     <!-- Strings related to Settings -->
 
@@ -9,5 +9,5 @@
 
     <!-- Example settings for Notifications -->
 
-    <string name="title_activity_edit_item">EditItemActivity</string>
+    <string name="title_activity_edit_item">Task Manager</string>
 </resources>
