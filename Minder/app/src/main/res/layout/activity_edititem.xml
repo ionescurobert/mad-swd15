@@ -37,9 +37,11 @@
 
     <Button
         android:id="@+id/savebtn"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="326dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:backgroundTint="@android:color/holo_green_dark"
         android:text="Save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
@@ -48,9 +50,11 @@
 
     <Button
         android:id="@+id/cancelbtn"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="326dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:backgroundTint="@android:color/holo_red_dark"
         android:text="Cancel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,5 +70,17 @@
         app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout2" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="296dp"
+        android:layout_height="32dp"
+        android:text="Edit your task here:"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="84dp" />
 
 </android.support.constraint.ConstraintLayout>
