@@ -9,17 +9,18 @@
         android:roundIcon="@drawable/baseline_note_black_36"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".EditItemActivity"
+            android:label="@string/title_activity_edit_item"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".SplashScreenActivity" android:theme="@style/SplashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".EditItemActivity"
-            android:label="@string/title_activity_edit_item"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".MainActivity"/>
     </application>
 
 </manifest>
